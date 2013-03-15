@@ -1,0 +1,22 @@
+<% provide(:title, @client.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @client.name %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+    <ul>
+      <li>Name: <span><%= @client.name %></span></li>
+      <li>Phone: <span><%= @client.phone %></span></li>
+      <li>Email: <span><%= @client.email %></span></li>
+      <li>Street: <span><%= @client.street %></span></li>
+      <li>City: <span><%= @client.city %></span></li>
+      <li>State: <span><%= @client.state %></span></li>
+      <li>Zip: <span><%= @client.zip %></span></li>
+    </ul>
+  </div>
+      
+</div>

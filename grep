@@ -1,0 +1,21 @@
+/var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:63:in `require': /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:63:in `require': cannot load such file -- rack/handler/get (LoadError)
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:63:in `try_require'
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:16:in `get'
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/server.rb:272:in `server'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands/server.rb:59:in `start'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:55:in `block in <top (required)>'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:50:in `tap'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:50:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+cannot load such file -- rack/handler/get (LoadError)
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:63:in `try_require'
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/handler.rb:16:in `get'
+	from /var/lib/gems/1.9.1/gems/rack-1.4.5/lib/rack/server.rb:272:in `server'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands/server.rb:59:in `start'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:55:in `block in <top (required)>'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:50:in `tap'
+	from /var/lib/gems/1.9.1/gems/railties-3.2.12/lib/rails/commands.rb:50:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+Exiting

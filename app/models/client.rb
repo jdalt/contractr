@@ -3,12 +3,14 @@ class Client < ActiveRecord::Base
 
   attr_accessible :city, :email, :name, :phone, :state, :street, :zip
 
-  before_validation do |client|
-    client.phone = phone.gsub(/\D/, '')
-  end
+  before_validation { |client| client.phone = phone.gsub(/\D/, '') }
+
+  before_save { |client| client.email = email.downcase }
 
 
+	validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :name, presence: true, length: { maximum: 50 }
-  validates :state, presence: true
   validates :phone, length: { is: 10 }, allow_blank: true
+  validates :state, presence: true
+  validates :zip, length: { is: 5 }, allow_nil: true
 end
