@@ -10,7 +10,7 @@ class Client < ActiveRecord::Base
 
 	validates :email, format: { with: VALID_EMAIL_REGEX }, allow_blank: true
   validates :name, presence: true, length: { maximum: 50 }
-  validates :phone, length: { is: 10 }, allow_blank: true
+  validates :phone, length: { is: 10, message: "numbers should have 10 digits"  }, allow_blank: true
   validates :state, presence: true
-  validates :zip, length: { is: 5 }, allow_nil: true
+  validates :zip, length: { is: 5, message: "codes should have 5 digits" }, allow_nil: true
 end

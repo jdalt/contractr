@@ -14,4 +14,12 @@ FactoryGirl.define do
     end
     sequence(:zip) { |n| n + 55555 }
   end
+
+  factory :work_category do
+    name "Hydroseeding"
+    price_per_unit 0.07
+    unit "sq foot"
+    labor_time_per_unit 30
+    is_taxable true
+  end
 end
