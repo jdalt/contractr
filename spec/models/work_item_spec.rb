@@ -4,20 +4,22 @@ describe WorkItem do
   let(:work_category) { FactoryGirl.create(:work_category) }
   let(:job) { FactoryGirl.create(:job) }
   let(:work_item) do
-    job.work_items.create(work_category: work_category, work_amount: 4000 )
+    job.work_items.create(work_category_id: work_category.id, work_amount: 4000 )
   end
 
   subject { work_item }
 
   it { should respond_to(:work_category) }
+  it { should respond_to(:work_category_id) }
   it { should respond_to(:work_amount) }
   it { should respond_to(:client_cost) }
   it { should respond_to(:job_id) }
+  it { should respond_to(:job) }
 
   it { should be_valid }
 
-  describe "when work_category is nil" do
-    before { work_item.work_category = nil }
+  describe "when work_category_id is nil" do
+    before { work_item.work_category_id = nil }
     it { should_not be_valid }
   end
 

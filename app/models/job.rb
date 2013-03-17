@@ -19,8 +19,7 @@ class Job < ActiveRecord::Base
 
   def fill_work_items(attributes)
     attributes.each do |item|
-      category = WorkCategory.find(item[:work_category_id]) # perf penalty ; consider rewiring WorkCategory to do direct ids
-      work_items.build( work_category: category, work_amount: item[:work_amount])
+      work_items.build( work_category_id: item[:work_category_id], work_amount: item[:work_amount])
     end
   end
 

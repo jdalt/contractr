@@ -50,8 +50,8 @@ describe Job do
     before do
       amt1 = 12000
       amt2 = 22000
-      job.work_items.build(work_category: cat, work_amount: amt1)
-      job.work_items.build(work_category: cat, work_amount: amt2)
+      job.work_items.build(work_category_id: cat.id, work_amount: amt1)
+      job.work_items.build(work_category_id: cat.id, work_amount: amt2)
       job.save!
       @sum = amt1 * cat.price_per_unit + amt2 * cat.price_per_unit
     end

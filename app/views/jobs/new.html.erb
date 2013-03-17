@@ -1,0 +1,24 @@
+<% provide(:title, 'New Job') %>
+<h1>Create New Job</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@job) do |f| %>
+
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= fields_for 'work_item[]', @first_work_item do |wi_form| %>
+        
+        <%= wi_form.label :work_amount %>
+        <%= wi_form.text_field :work_amount %>
+
+        <%= collection_select(:work_item, :work_category_id, WorkCategory.all, :id, :name) %>
+      <% end %>
+
+      <%= f.submit "Save Job", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
