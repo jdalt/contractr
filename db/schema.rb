@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315232554) do
+ActiveRecord::Schema.define(:version => 20130316234827) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(:version => 20130315232554) do
 
   add_index "clients", ["name"], :name => "index_clients_on_name"
 
+  create_table "jobs", :force => true do |t|
+    t.string   "name"
+    t.boolean  "is_bid"
+    t.boolean  "is_billed"
+    t.boolean  "is_paid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "jobs", ["name"], :name => "index_jobs_on_name"
+
   create_table "work_categories", :force => true do |t|
     t.string   "name"
     t.decimal  "price_per_unit"
@@ -38,5 +49,13 @@ ActiveRecord::Schema.define(:version => 20130315232554) do
   end
 
   add_index "work_categories", ["name"], :name => "index_work_categories_on_name"
+
+  create_table "work_items", :force => true do |t|
+    t.integer  "work_category_id"
+    t.integer  "work_amount"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "job_id"
+  end
 
 end

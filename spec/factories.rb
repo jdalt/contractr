@@ -22,4 +22,11 @@ FactoryGirl.define do
     labor_time_per_unit 30
     is_taxable true
   end
+
+  factory :job do
+    name "Jon Doe's New Lawn"
+    is_bid true
+    is_billed false
+    is_paid false
+  end
 end
