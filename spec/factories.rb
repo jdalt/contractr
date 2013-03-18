@@ -23,10 +23,25 @@ FactoryGirl.define do
     is_taxable true
   end
 
+  factory :work_item do
+    job
+    work_category
+    work_amount 12500
+  end
+
   factory :job do
     name "Jon Doe's New Lawn"
     is_bid true
     is_billed false
     is_paid false
+    
+    factory :job_with_items do
+      ignore do
+        work_item_count 3
+      end
+      after(:create) do |job, evaluator| 
+        FactoryGirl.create_list(:work_item, evaluator.work_item_count, job: job)
+      end
+    end
   end
 end

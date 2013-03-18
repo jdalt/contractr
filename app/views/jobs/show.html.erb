@@ -1,2 +1,14 @@
-<h1>Jobs#show</h1>
-<p>Find me in app/views/jobs/show.html.erb</p>
+<% provide(:title, @job.name) %>
+
+<h1>Job: <%= @job.name %></h1>
+<div class="row">
+  <div class="span8">
+    <ul>
+      <% @job.work_items.all.each do |item| %>
+        <li><%= item.work_category.name %> - <%= item.work_amount %> at <%= item.work_category.price_per_unit %> per <%= item.work_category.unit %> = <%= item.client_cost %></li>
+      <% end %>
+    </ul>
+    <div> Total Cost: <%= @job.total_cost %> </div>
+  </div>
+      
+</div>

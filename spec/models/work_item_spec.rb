@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 describe WorkItem do
-  let(:work_category) { FactoryGirl.create(:work_category) }
-  let(:job) { FactoryGirl.create(:job) }
-  let(:work_item) do
-    job.work_items.create(work_category_id: work_category.id, work_amount: 4000)
-  end
+  let(:work_item) { FactoryGirl.build_stubbed(:work_item) }
 
   subject { work_item }
 
@@ -24,7 +20,7 @@ describe WorkItem do
   end
 
   describe "work_category should have a name" do
-    specify { work_item.work_category.name.should == work_category.name }
+    specify { work_item.work_category.name.should_not be_blank }
   end
 
   describe "when work_amount is nil" do
@@ -38,9 +34,13 @@ describe WorkItem do
   end
 
   describe "accessible attributes" do
+  before do 
+      @job = FactoryGirl.create(:job)
+      @cat = FactoryGirl.create(:work_category)
+    end
     it "should not allow access to job_id" do
       expect do
-        WorkItem.new(job_id: job.id, work_category_id: work_category.id, work_amount: 4000)
+        WorkItem.new(job_id: @job.id, work_category_id: @cat.id, work_amount: 4000)
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end
   end

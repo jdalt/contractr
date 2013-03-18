@@ -8,7 +8,7 @@ require 'spec_helper'
 # Hydroseeding per load v per sq foot; rounding up to the load amount
 
 describe WorkCategory do
-  let(:work_category) { FactoryGirl.create(:work_category) }
+  let(:work_category) { FactoryGirl.build_stubbed(:work_category) }
 
   subject { work_category }
 

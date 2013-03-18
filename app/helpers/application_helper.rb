@@ -4,7 +4,8 @@ module ApplicationHelper
 		if page_title.empty?
 			base_title
 		else
-			"#{base_title} | #{page_title}"
+      #TODO: still don't totally understanding what is escaping what
+			"#{base_title} | #{page_title}".html_safe 
 		end
 	end
 end

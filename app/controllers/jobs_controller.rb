@@ -10,8 +10,6 @@ class JobsController < ApplicationController
   end
 
   def create
-    #TODO: redo this so that we create a job first,
-    # and then create the ids for the work_items
     @job = Job.new(params[:job])
     if(@job.save)
       redirect_to @job
@@ -24,7 +22,12 @@ class JobsController < ApplicationController
     logger.debug(params.inspect)
   end
 
-  # def show
-  # end
+  def show
+    @job = Job.find(params[:id])
+  end
+
+  def index
+    @jobs = Job.all #paginate this shit later
+  end
 
 end

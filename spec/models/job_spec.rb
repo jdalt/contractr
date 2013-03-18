@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Job do
-  let(:job) { FactoryGirl.create(:job) }
+  # TODO: Consider stubbing these objects
+  let(:job) { FactoryGirl.build_stubbed(:job) }
   let!(:cat) { FactoryGirl.create(:work_category) }
 
   subject { job }

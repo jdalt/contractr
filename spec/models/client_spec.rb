@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Client do
-  let(:client) { FactoryGirl.create(:client) }
+  let(:client) { FactoryGirl.build_stubbed(:client) }
 
   subject { client }
 
