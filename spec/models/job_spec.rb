@@ -12,7 +12,6 @@ describe Job do
   it { should respond_to(:is_billed) }
   it { should respond_to(:is_paid) }
   it { should respond_to(:work_items) }
-  it { should respond_to(:fill_work_items) }
 
   it { should be_valid }
 
@@ -32,18 +31,21 @@ describe Job do
     specify { job.is_bid == true }
   end
 
-  describe "fill_work_items should create records from params" do
+  describe "when built from params" do
     before do
       id = cat.id
-      @params = [ 
-        { work_category_id: id, work_amount: 12345 },
-        { work_category_id: id, work_amount: 56789 }
-      ]
-      job.fill_work_items(@params)
-      job.save!
+      @params = { 
+        "name" => "New Job", "work_items_attributes" => { 
+          "0" => { "work_category_id" => id.to_s, "work_amount" => 12345.to_s },
+          "1" => { "work_category_id" => id.to_s, "work_amount" => 56789.to_s }
+        }
+      }
+      @new_job = Job.new(@params)
+      @new_job.save!
     end
-    specify { job.work_items[0].work_amount == @params[0][:work_amount] }
-    specify { job.work_items[1].work_amount == @params[1][:work_amount] }
+    specify { @new_job.should be_valid }
+    specify { @new_job.work_items[0].work_amount.should == @params["work_items_attributes"]["0"]["work_amount"].to_i }
+    specify { @new_job.work_items[1].work_amount.should == @params["work_items_attributes"]["1"]["work_amount"].to_i }
   end
 
   describe "total_cost should equal sum of work_item's client_cost" do

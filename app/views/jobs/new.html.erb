@@ -8,14 +8,16 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name %> <br>
 
-      <%= fields_for 'work_item[]', @first_work_item do |wi_form| %>
-        
+      <h4>Work Items</h4>
+      <%= f.fields_for :work_items do |wi_form| %>
+
+        <%= wi_form.collection_select(:work_category_id, WorkCategory.all, :id, :name) %>
+
         <%= wi_form.label :work_amount %>
-        <%= wi_form.text_field :work_amount %>
+        <%= wi_form.text_field :work_amount %> <br>
 
-        <%= collection_select(:work_item, :work_category_id, WorkCategory.all, :id, :name) %>
       <% end %>
 
       <%= f.submit "Save Job", class: "btn btn-large btn-primary" %>

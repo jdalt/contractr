@@ -1,7 +1,8 @@
 class Job < ActiveRecord::Base
-  attr_accessible :is_bid, :is_billed, :is_paid, :name
+  attr_accessible :is_bid, :is_billed, :is_paid, :name, :work_items_attributes
 
-  has_many :work_items, :dependent => :destroy
+  has_many :work_items, :inverse_of => :job, :dependent => :destroy
+  accepts_nested_attributes_for :work_items, allow_destroy: true
 
   # default value
   before_validation { |job| job.is_bid ||= true }
@@ -16,12 +17,4 @@ class Job < ActiveRecord::Base
     end
     sum
   end
-
-  def fill_work_items(attributes)
-    attributes.each do |item|
-      work_items.build( work_category_id: item[:work_category_id], work_amount: item[:work_amount])
-    end
-  end
-
-        
 end

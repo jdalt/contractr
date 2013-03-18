@@ -4,7 +4,7 @@ describe WorkItem do
   let(:work_category) { FactoryGirl.create(:work_category) }
   let(:job) { FactoryGirl.create(:job) }
   let(:work_item) do
-    job.work_items.create(work_category_id: work_category.id, work_amount: 4000 )
+    job.work_items.create(work_category_id: work_category.id, work_amount: 4000)
   end
 
   subject { work_item }
@@ -35,6 +35,14 @@ describe WorkItem do
   describe "when client_cost should not be nil" do
     before { work_item.work_amount = nil }
     it { should_not be_valid }
+  end
+
+  describe "accessible attributes" do
+    it "should not allow access to job_id" do
+      expect do
+        WorkItem.new(job_id: job.id, work_category_id: work_category.id, work_amount: 4000)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
   end
 
   describe "when job_id is nil" do

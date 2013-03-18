@@ -1,0 +1,13 @@
+
+<%= wi_form.hidden_field :job %> <br>
+
+<%= wi_form.label :work_amount %>
+<input type="text" name="work_items[][work_amount]" />
+
+<%= wi_form.label :work_amount %>
+<input type="text" name="work_items[][work_amount]" />
+
+<%= wi_form.label :work_amount %>
+<input type="text" name="work_items[][work_amount]" />
+
+<%= collection_select(:work_item, :work_category_id, WorkCategory.all, :id, :name) %>
