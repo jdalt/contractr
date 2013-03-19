@@ -4,6 +4,7 @@ gem 'rails', '3.2.12'
 gem 'pg', '0.14.1'
 gem 'bootstrap-sass', '2.1'
 gem 'jquery-rails', '2.0.2'
+gem 'nested_form'
 
 # development and test
 group :development, :test do
