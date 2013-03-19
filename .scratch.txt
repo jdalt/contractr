@@ -1,4 +1,7 @@
 
+<%= wi_form.collection_select(:work_category_id, @work_categories, 
+                              :id, :name, :include_blank => true) %>
+                                      
 <%= wi_form.hidden_field :job %> <br>
 
 <%= wi_form.label :work_amount %>

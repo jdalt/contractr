@@ -1,26 +1,131 @@
-<% provide(:title, 'New Job') %>
-<h1>Create New Job</h1>
+<% @work_categories = WorkCategory.all %>
 
+<% provide(:title, 'New Job') %>
+
+<h1>Create New Job</h1>
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span12 offset2">
     <%= form_for(@job) do |f| %>
 
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :name %>
+      <%= f.label :name, "Job Name" %><br />
       <%= f.text_field :name %> <br>
 
-      <h4>Work Items</h4>
-      <%= f.fields_for :work_items do |wi_form| %>
+      <table>
+        <caption><h4>Work Items</h4></caption>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+            <th class="cost-column">Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= f.fields_for :work_items do |wi_form| %>
 
-        <%= wi_form.collection_select(:work_category_id, WorkCategory.all, :id, :name) %>
+          <% item_id = @job.work_items.index(wi_form.object) %>
+          <tr id="work_item_<%= item_id %>" class="work-items" data-column="<%= item_id %>">
+            <td>
+              <%= wi_form.collection_select(:work_category_id, @work_categories, 
+                                          :id, :name, :include_blank => true) %>
+            </td>
 
-        <%= wi_form.label :work_amount %>
-        <%= wi_form.text_field :work_amount %> <br>
+            <td class="category-detail"></td>
 
-      <% end %>
+
+            <td class="work-item-amount">
+              <%= wi_form.text_field :work_amount, class: "work-item-amount" %>
+              <%= wi_form.label :work_amount, "&nbsp".html_safe %>
+            </td>
+
+            <td class="work-item-cost">
+            </td>
+          </tr>
+
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="job-total-cost">0</td>
+          </tr>
+        </tfoot>
+      </table>
 
       <%= f.submit "Save Job", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>
+
+<div id="work_categories" style="display:none">
+  <% @work_categories.each do |item| %>
+    <div id="work_category_<%= item.id %>">
+      $<%= item.price_per_unit %> per
+      <%= item.unit %>
+    </div>
+  <% end %>
+</div>
+      
+<script>
+
+  var contractr = {};
+  contractr.work_categories = <%= raw @work_categories.to_json(only: [:id, :name, :price_per_unit, :unit]) %>
+
+  $(document).ready(function(){
+    // change on options will update the data column
+    $('.work-items select').change(function(){
+      var $me = $(this);
+      var category_id = $me.find(':selected').val();
+      var column_id = $me.parents('.work-items').attr('data-column');
+      if(category_id == ""){
+        $('#work_item_'+column_id+' .category-detail').empty();
+        $('#work_item_'+column_id+' .work-item-amount label').empty();
+      } else {
+        //TODO: eat this data and output via template
+        // I would prefer to extract data from contractr.work_items[id],
+        // create a template, and render with underscore
+
+        var category_html = $('#work_category_' + category_id).html();
+        $('#work_item_'+column_id+' .category-detail').html(category_html);
+
+        // json object (contractr.work_categories) is indexed from 0 rather than 1
+        var unit = contractr.work_categories[category_id-1]["unit"];
+        $('#work_item_'+column_id+' .work-item-amount label').html(unit);
+
+        // empty the current amount since it's units probaly won't match
+        var $column_root = $me.parents('.work-items');
+        $column_root.find('.work-item-amount input').val("");
+        $column_root.find('.work-item-cost').html("");
+        $('#job-total-cost').html("???");
+      }
+    });
+
+    // entering input into "amount" column will update "cost" and "total_cost"
+    $('.work-item-amount input').keyup(function(){
+      var $me = $(this);
+      var amount = $me.val();
+      var column_id = $me.parents('.work-items').attr('data-column');
+      var selected_id = $me.parents('.work-items').find(':selected').attr('value');
+      var price_per_unit = contractr.work_categories[selected_id-1].price_per_unit;
+      $('#work_item_'+column_id+' .work-item-cost').html(Math.round((amount * price_per_unit)*100)/100);
+
+      // update the total by summing the work-items which have valid values
+      var total = 0;
+      $('.work-items .work-item-cost').each(function(){
+        var cost_value = parseFloat($(this).html());
+        if(!isNaN(cost_value)){
+          total += cost_value;
+        }
+      });
+      $('#job-total-cost').html(total);
+    });
+    var work_item_index = /work_items_attributes_(\d*)/
+  });
+</script>
+
+    
+   

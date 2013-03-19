@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
 
   def new
-    @job = Job.new( name: "Fake Name")
+    @job = Job.new( name: "New Job")
     3.times do |i|
       logger.info "#{i} item built"
       item = @job.work_items.new
