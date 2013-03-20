@@ -1,0 +1,18 @@
+<%= nested_form_for(@job) do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name, "Job Name" %><br />
+  <%= f.text_field :name, class: 'input-medium' %> <br>
+
+  <%= render 'work_item_table', f: f %>
+
+  <div class="span10 align-right">
+    <%= f.submit "#{form_action} Job", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  // TODO: verify that printing raw(from db...) is secure
+  contractr.work_categories = <%= raw @work_categories.to_json(only: [:id, :name, :price_per_unit, :unit]) %>
+</script>

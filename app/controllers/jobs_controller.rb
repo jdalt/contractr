@@ -2,11 +2,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new( name: "New Job")
-    3.times do |i|
-      logger.info "#{i} item built"
-      item = @job.work_items.new
-      logger.debug(item.inspect)
-    end
+    @job.work_items.new
   end
 
   def create

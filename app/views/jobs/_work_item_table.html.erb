@@ -1,0 +1,62 @@
+<table class="table-bordered span10">
+  <caption><h4>Work Items</h4></caption>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th class="cost-column">Cost</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="work-item-body">
+    <%= f.fields_for :work_items, wrapper: false do |wi_form| %>
+
+      <% item_id = @job.work_items.index(wi_form.object) %>
+      <tr class="work-items fields" data-column="<%= item_id %>">
+        <td>
+          <%= wi_form.collection_select(:work_category_id, @work_categories, 
+                                        :id, :name, { include_blank: true }, 
+                                        { class: 'input-medium' }) %>
+        </td>
+
+        <td class="category-detail"></td>
+
+        <td class="work-item-amount">
+          <%= wi_form.text_field :work_amount, class: "work-item-amount input-small" %>
+          <%= wi_form.label :work_amount, "&nbsp".html_safe %>
+        </td>
+
+        <td class="work-item-cost cost-column"> </td>
+
+        <td class="work-item-delete">
+          <%= wi_form.link_to_remove 'Remove Item 
+          <i class="icon-remove-sign icon-white"></i>
+          '.html_safe, class: "btn btn-danger" %>
+          
+        </td>
+      </tr>
+
+    <% end %>
+    <tr>
+      <td>
+        <%= f.link_to_add 'Add a Work Item 
+        <i class="icon-plus-sign icon-white"></i>
+        '.html_safe, :work_items, class: "btn btn-success"%>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td id="job-total-cost" class="cost-column">0</td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
