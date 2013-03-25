@@ -33,8 +33,8 @@ describe "Job pages" do
         it { should have_selector('title', text: job_name) }
 
         describe "the cost should be equal ppu*amount" do
-          it { should have_selector('#total-cost', text: (ppu*amount).to_s) }
-          it { should have_selector('.item-cost', text: (ppu*amount).to_s) }
+          it { should have_selector('#job-total-cost', text: (ppu*amount).to_s) }
+          it { should have_selector('.work-item-cost', text: (ppu*amount).to_s) }
         end
 
       end
@@ -63,13 +63,16 @@ describe "Job pages" do
   describe "index" do
     let(:job_name_un) { "Job 1" }
     let(:job_name_deux) { "Job 2" }
+    let!(:job_un) { FactoryGirl.create(:job_with_items, name: job_name_un) }
+    let!(:job_deux) { FactoryGirl.create(:job_with_items, name: job_name_deux) }
     before do
-      FactoryGirl.create(:job_with_items, name: job_name_un)
-      FactoryGirl.create(:job_with_items, name: job_name_deux)
       visit jobs_path
     end
     it { should have_selector('h3', text: job_name_un) }
     it { should have_selector('h3', text: job_name_deux) }
+    describe "when a job is created it is marked as bid by defualt" do
+      specify { find("#job_#{job_un.id} .bid").should have_selector('.icon-ok') }
+    end
   end
 end
 

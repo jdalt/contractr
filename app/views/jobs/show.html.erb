@@ -2,13 +2,47 @@
 
 <h1>Job: <%= @job.name %></h1>
 <div class="row">
-  <div class="span8">
-    <ul>
-      <% @job.work_items.all.each do |item| %>
-        <li><%= item.work_category.name %> - <%= item.work_amount %> at <%= item.work_category.price_per_unit %> per <%= item.work_category.unit %> = <span class="item-cost"><%= item.client_cost %></span></li>
-      <% end %>
-    </ul>
-    <div id="total-cost"> Total Cost: <%= @job.total_cost %> </div>
+  <div class="span12">
+    <table class="table-bordered span10">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Quantity</th>
+          <th class="cost-column">Cost</th>
+        </tr>
+      </thead>
+      <tbody id="work-item-body">
+        <% @job.work_items.all.each do |item| %>
+
+          <tr class="work-items fields">
+            <td>
+              <%= item.work_category.name %>
+            </td>
+
+            <td class="work-item-amount">
+              <%= item.work_amount %>
+              at
+              <%= item.work_category.price_per_unit %>
+              per
+              <%= item.work_category.unit %>
+            </td>
+
+            <td class="work-item-cost cost-column">
+              <%= item.client_cost %>
+            </td>
+          </tr>
+
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td id="job-total-cost" class="cost-column">
+            Total: <%= @job.total_cost %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-      
 </div>

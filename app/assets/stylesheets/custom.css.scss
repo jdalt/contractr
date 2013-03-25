@@ -95,3 +95,11 @@ footer {
   @include box_sizing;
 }
 
+/* Util */
+.border{
+  border: 1px solid black;
+}
+
+.nofloat{
+  float: none;
+}

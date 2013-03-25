@@ -2,12 +2,41 @@
 
 <h1>All Jobs</h1>
 <div class="row">
-  <div class="span8">
-    <ul>
-      <% @jobs.each do |job| %>
-        <h3><%= link_to job.name, job %></h3> .............. $<%= job.total_cost %>  </li>
-      <% end %>
-    </ul>
-  </div>
-      
+  <% @jobs.each do |job| %>
+
+    <div id="job_<%= job.id %>" class="job-box">
+      <a href="<%= job_path(job) %>"><span class="expand"></span></a> 
+      <h3><%= job.name %></h3> 
+      <table class="table-bordered span6 nofloat">
+        <thead>
+          <tr>
+            <th>Work</th>
+            <th></th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% job.work_items.all.each do |item| %>
+            <tr>
+              <td><%= item.work_category.name %></td>
+              <td></td>
+              <td><%= item.client_cost %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total Cost</td>
+            <td></td>
+            <td><%= job.total_cost %></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div> 
+        <span class="bid">Bid <%= icon_ok_remove job.is_bid? %></span>
+        <span class="billed">Billed <%= icon_ok_remove job.is_billed? %></span>
+        <span class="paid">Paid <%= icon_ok_remove job.is_paid? %></span>
+      </div>
+    </div>
+  <% end %>
 </div>
