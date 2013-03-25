@@ -5,10 +5,10 @@
   <div class="span8">
     <ul>
       <% @job.work_items.all.each do |item| %>
-        <li><%= item.work_category.name %> - <%= item.work_amount %> at <%= item.work_category.price_per_unit %> per <%= item.work_category.unit %> = <%= item.client_cost %></li>
+        <li><%= item.work_category.name %> - <%= item.work_amount %> at <%= item.work_category.price_per_unit %> per <%= item.work_category.unit %> = <span class="item-cost"><%= item.client_cost %></span></li>
       <% end %>
     </ul>
-    <div> Total Cost: <%= @job.total_cost %> </div>
+    <div id="total-cost"> Total Cost: <%= @job.total_cost %> </div>
   </div>
       
 </div>

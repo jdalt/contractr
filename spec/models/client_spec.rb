@@ -103,6 +103,17 @@ describe Client do
   end
 
   #invalid
+  describe "when zip is non-numbers" do
+    before { client.zip = "a12345" }
+    it { should_not be_valid }
+    before { client.zip = "a1234" }
+    it { should_not be_valid }
+    before { client.zip = "1234s" }
+    it { should_not be_valid }
+    before { client.zip = "12345s" }
+    it { should_not be_valid }
+  end
+
   describe "when zip is short (3 digits)" do
     before { client.zip = 123 }
     it { should_not be_valid }

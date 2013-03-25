@@ -28,6 +28,11 @@ describe WorkItem do
     it { should_not be_valid }
   end
 
+  describe "when work_amount is non-number" do
+    before { work_item.work_amount = "asdf" }
+    it { should_not be_valid }
+  end
+
   describe "when client_cost should not be nil" do
     before { work_item.work_amount = nil }
     it { should_not be_valid }

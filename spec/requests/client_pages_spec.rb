@@ -39,6 +39,7 @@ describe "Client pages" do
       it "should create a client" do
         expect { click_button submit }.to change(Client, :count).by(1)
       end
+
       describe "should redirect to the client profile page" do
         before { click_button submit }
         it { should have_selector('title', text: client_name) }

@@ -1,3 +1,4 @@
+// TODO: !! cost estimation is not correct if items are deleted!! fix and add js tests
 var contractr = {};
 $(document).ready(function(){
   window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
