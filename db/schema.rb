@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130316234827) do
+ActiveRecord::Schema.define(:version => 20130325160833) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130316234827) do
     t.boolean  "is_paid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "client_id"
   end
 
   add_index "jobs", ["name"], :name => "index_jobs_on_name"

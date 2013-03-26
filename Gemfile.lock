@@ -151,7 +151,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (= 2.1)
   capybara (= 1.1.2)
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 3.2.2)
   factory_girl_rails (= 4.1.0)
   jquery-rails (= 2.0.2)
   launchy
@@ -159,6 +159,6 @@ DEPENDENCIES
   pg (= 0.14.1)
   rails (= 3.2.12)
   rspec-rails (= 2.11.0)
-  sass-rails (~> 3.2.3)
-  uglifier (>= 1.0.3)
+  sass-rails (~> 3.2.5)
+  uglifier (>= 1.2.3)
   wirble

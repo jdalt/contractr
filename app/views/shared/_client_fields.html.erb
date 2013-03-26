@@ -1,0 +1,40 @@
+<%= builder.fields_for :client_attributes, @client do |f| %>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th><%= f.label :name, "Client Name"  %></th>
+        <th><%= f.label :phone %></th>
+        <th><%= f.label :email %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= f.text_field :name, class: 'input-medium' %></td>
+        <td><%= f.telephone_field :phone, class: 'input-small' %></td>
+        <td><%= f.text_field :email, class: 'input-large' %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th><%= f.label :street %></th>
+        <th><%= f.label :city %></th>
+        <th><%= f.label :state %></th>
+        <th><%= f.label :zip %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= f.text_field :street %></td>
+        <td><%= f.text_field :city, class: 'input-small' %></td>
+        <td><%= f.text_field :state, class: 'input-mini' %></td>
+        <td><%= f.text_field :zip, class: 'input-mini' %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>
+

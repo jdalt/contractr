@@ -40,7 +40,7 @@ describe WorkItem do
 
   describe "accessible attributes" do
   before do 
-      @job = FactoryGirl.create(:job)
+      @job = FactoryGirl.create(:job_with_items, work_item_count: 1)
       @cat = FactoryGirl.create(:work_category)
     end
     it "should not allow access to job_id" do

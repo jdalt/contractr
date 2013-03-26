@@ -24,6 +24,8 @@ FactoryGirl.define do
   end
 
   factory :work_item do
+    # In the future this could be optimized to allow
+    # build rather than creating work_category.
     job
     work_category
     work_amount 12500
@@ -31,6 +33,7 @@ FactoryGirl.define do
 
   factory :job do
     name "Jon Doe's New Lawn"
+    client
     is_bid true
     is_billed false
     is_paid false
@@ -39,8 +42,12 @@ FactoryGirl.define do
       ignore do
         work_item_count 3
       end
-      after(:create) do |job, evaluator| 
-        FactoryGirl.create_list(:work_item, evaluator.work_item_count, job: job)
+      # after(:create) do |job, evaluator| 
+      #   # FactoryGirl.create_list(:work_item, evaluator.work_item_count, job: job)
+      #   # job.work_items.save
+      # end
+      after(:build) do |job, evaluator|
+        job.work_items = FactoryGirl.build_list(:work_item, evaluator.work_item_count, job: job)
       end
     end
   end

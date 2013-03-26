@@ -1,4 +1,4 @@
-<table class="table-bordered span10">
+<table class="job-table span10">
   <caption><h4>Work Items</h4></caption>
   <thead>
     <tr>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody id="work-item-body">
-    <%= f.fields_for :work_items, wrapper: false do |wi_form| %>
+    <%= builder.fields_for :work_items, wrapper: false do |wi_form| %>
 
       <% item_id = @job.work_items.index(wi_form.object) %>
       <tr class="work-items fields" data-column="<%= item_id %>">
@@ -40,7 +40,7 @@
     <% end %>
     <tr>
       <td>
-        <%= f.link_to_add 'Add a Work Item 
+        <%= builder.link_to_add 'Add a Work Item 
         <i class="icon-plus-sign icon-white"></i>
         '.html_safe, :work_items, class: "btn btn-success"%>
       </td>

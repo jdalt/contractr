@@ -7,7 +7,18 @@
     <div id="job_<%= job.id %>" class="job-box">
       <a href="<%= job_path(job) %>"><span class="expand"></span></a> 
       <h3><%= job.name %></h3> 
-      <table class="table-bordered span6 nofloat">
+      <br>
+      <table class="compact-client-table">
+        <tbody>
+          <tr>
+            <td><%= job.client.name %></td>
+            <td><%= job.client.phone %></td>
+            <td><%= job.client.city %>, <%= job.client.state %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="compact-table span6">
         <thead>
           <tr>
             <th>Work</th>
@@ -32,6 +43,7 @@
           </tr>
         </tfoot>
       </table>
+      <br>
       <div> 
         <span class="bid">Bid <%= icon_ok_remove job.is_bid? %></span>
         <span class="billed">Billed <%= icon_ok_remove job.is_billed? %></span>

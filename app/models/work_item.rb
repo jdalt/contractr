@@ -5,7 +5,8 @@ class WorkItem < ActiveRecord::Base
   belongs_to :job, :inverse_of => :work_items
 
   validates :work_amount, numericality: { only_integer: true },  presence: true
-  validates :work_category_id, presence: true
+  # The following results in small perf penalty but better db integrity
+  validates_presence_of :work_category
   validates_presence_of :job
 
   def client_cost

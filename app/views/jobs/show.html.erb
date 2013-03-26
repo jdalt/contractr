@@ -3,7 +3,15 @@
 <h1>Job: <%= @job.name %></h1>
 <div class="row">
   <div class="span12">
-    <table class="table-bordered span10">
+    <div class="coolz"><%= @job.client.name %></div>
+    <div class="client-line"><%= @job.client.street %></div>
+    <div class="client-line"><%= @job.client.city %>, <%= @job.client.state %> <%= @job.client.zip %></div>
+    <br>
+    <div class="client-line"><%= @job.client.phone %></div>
+    <div class="client-line"><%= @job.client.email %></div>
+    <br>
+
+    <table class="job-table span10">
       <thead>
         <tr>
           <th>Task</th>
@@ -20,10 +28,10 @@
             </td>
 
             <td class="work-item-amount">
-              <%= item.work_amount %>
-              at
+              <strong><%= item.work_amount %></strong>
+              <small>at</small>
               <%= item.work_category.price_per_unit %>
-              per
+              <small>per</small>
               <%= item.work_category.unit %>
             </td>
 

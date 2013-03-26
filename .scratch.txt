@@ -14,3 +14,21 @@
 <input type="text" name="work_items[][work_amount]" />
 
 <%= collection_select(:work_item, :work_category_id, WorkCategory.all, :id, :name) %>
+
+
+      <table class="client-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>City</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= job.client.name %></td>
+            <td><%= job.client.phone %></td>
+            <td><%= job.client.city %>, <%= job.client.state %></td>
+          </tr>
+        </tbody>
+      </table>

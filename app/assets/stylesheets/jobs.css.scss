@@ -2,67 +2,108 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// TODO: rewrite this in proper bootstrap style
+// TODO: rewrite this in proper sass style
+
+@import "bootstrap";
 
 /* job#new form */
-table.span6{
-  margin-left: 0;
+.job-table{
+  @extend .table-bordered;
+  table.span6{
+    margin-left: 0;
+  }
+
+  input, table select, td .btn{
+    margin: .5em 0;
+  }
+
+  input{
+    text-align: right;
+  }
+
+  thead tr th,
+  tfoot tr td{
+    background-color: #000;
+    color: #fff;
+  }
+
+  tr:nth-child(odd){
+    background-color: #eee;
+  }
+
+  th, tfoot td{
+    padding: .5em 0;
+  }
+
+  td{
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  label{
+    display: inline-block;
+  }
+
+  .category-detail{
+    text-align: center;
+  }
+
+  .cost-column{
+    padding-right: 1em;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  .work-item-cost, #job-total-cost{
+    text-align: right;
+  }
+
+  .work-item-amount{
+    padding-left: 2em;
+  }
 }
 
-tr:nth-child(odd){
-  background-color: #eee;
+.client-table{
+  text-align: left;
+  label{
+    margin-bottom: 0;
+  }
 }
 
-thead tr:nth-child(odd),
-tfoot tr:nth-child(odd){
-  background-color: #000;
-  color: #fff;
+.compact-client-table{
+  @extend .client-table;
+  margin: 0 auto;
+  font-size: 20px;
+  td{
+    padding: .25em 1em;
+  }
 }
 
-table input, table select, td .btn{
-  margin: .5em 0;
-}
-
-td{
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-th, tfoot td{
-  padding: .5em 0;
-}
-
-table input{
-  text-align: right;
-}
-
-table .work-item-amount{
-  padding-left: 2em;
-}
-
-table .cost-column{
-  text-align: right;
-}
-.category-detail{
+.client-line{
+  font-size: 16px;
+  margin: .25em auto;
   text-align: center;
 }
-  
-.work-item-cost, #job-total-cost{
-  text-align: right;
+
+.coolz{
+  @extend .client-line;
+  font-size: 24px;
 }
 
-label{
-  display: inline-block;
+.compact-table{
+  @extend .job-table;
+  float: none;
+  margin: 0 auto;
+}
+
+input[type="submit"]{
+  margin-top: .5em;
 }
 
 .align-right{
   text-align: right;
 }
 
-.cost-column{
-  padding-right: 1em;
-  min-width: 50px;
-}
 
 /* index */
 .job-box{
@@ -75,9 +116,6 @@ label{
 
 .job-box:hover{
   background-color: #eee
-}
-
-.job-box a{
 }
 
 .job-box h3{

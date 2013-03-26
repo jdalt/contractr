@@ -18,7 +18,10 @@ describe "Job pages" do
       let(:submit) { "Save Job" }
       let(:job_name) { "Example Job" }
       before do
+        # TODO: update for client in form
         fill_in "Job Name", with: job_name
+        fill_in "Client Name", with: "John Snow"
+        fill_in "State", with: "MN"
         find("#new_job table select").select cat_name
         find("#new_job table .work-item-amount").fill_in("", with: amount.to_s)
         # save_and_open_page
@@ -42,7 +45,7 @@ describe "Job pages" do
   end
 
   describe "show" do
-    let(:job) { FactoryGirl.create(:job_with_items) }
+    let!(:job) { FactoryGirl.create(:job_with_items) }
 
     before { visit job_path(job) }
     it { should have_selector('h1', text: job.name) }
@@ -53,7 +56,7 @@ describe "Job pages" do
     describe "when job name has double title (xss threat)" do
       before do
         # this will create two titles unless the name is escaped by the db
-        @xss_job = FactoryGirl.create(:job, name: "Hey</title><title>injection")
+        @xss_job = FactoryGirl.create(:job_with_items, name: "Hey</title><title>injection")
         visit job_path(@xss_job)
       end
       it { should_not have_selector('title', text: /\Ainjection\z/) }
@@ -75,4 +78,3 @@ describe "Job pages" do
     end
   end
 end
-
