@@ -6,4 +6,5 @@ describe "menu" do
 
   it { should have_link "New Job", href: new_job_path }
   it { should have_link "All Jobs", href: jobs_path }
+  it { should have_link "Sign in", href: new_user_session_path }
 end
