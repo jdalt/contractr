@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Base
+  #TODO: DRY up
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   attr_accessible :city, :email, :name, :phone, :state, :street, :zip

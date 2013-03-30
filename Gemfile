@@ -5,6 +5,7 @@ gem 'pg', '0.14.1'
 gem 'bootstrap-sass', '2.1'
 gem 'jquery-rails', '2.0.2'
 gem 'nested_form'
+gem 'devise'
 
 # development and test
 group :development, :test do
