@@ -1,11 +1,19 @@
 require 'spec_helper'
 
 describe "Client pages" do
+  # TODO: consider replacing with a faster helper
+  let!(:user) { FactoryGirl.create(:user) }
+  before do
+    visit new_user_session_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_button "Sign in"
+  end
 	subject { page }
 
   describe "new" do
     before do
-      visit new_client_path
+      visit new_user_client_path(user)
     end
     it { should have_selector('h1', text: 'Add New Client') }
     it { should have_selector('title', text: 'Add New Client') }

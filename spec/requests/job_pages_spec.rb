@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe "Job pages" do
+  # TODO: consider replacing with a faster helper
+  let!(:user) { FactoryGirl.create(:user) }
+  before do
+    visit new_user_session_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_button "Sign in"
+  end
 	subject { page }
 
   describe "new" do
@@ -9,7 +17,7 @@ describe "Job pages" do
     let(:amount) { 1000 }
     before do
       FactoryGirl.create(:work_category, name: cat_name, price_per_unit: ppu)
-      visit new_job_path
+      visit new_user_job_path(user)
     end
     it { should have_selector('h1', text: 'Create New Job') }
     it { should have_selector('title', text: 'Job') }
@@ -18,7 +26,6 @@ describe "Job pages" do
       let(:submit) { "Save Job" }
       let(:job_name) { "Example Job" }
       before do
-        # TODO: update for client in form
         fill_in "Job Name", with: job_name
         fill_in "Client Name", with: "John Snow"
         fill_in "State", with: "MN"
@@ -45,9 +52,9 @@ describe "Job pages" do
   end
 
   describe "show" do
-    let!(:job) { FactoryGirl.create(:job_with_items) }
+    let!(:job) { FactoryGirl.create(:job_with_items, user: user) }
 
-    before { visit job_path(job) }
+    before { visit user_job_path(user, job) }
     it { should have_selector('h1', text: job.name) }
     it { should have_selector('title', text: job.name) }
     it { should have_content(job.work_items.first.work_category.name) }
@@ -56,8 +63,8 @@ describe "Job pages" do
     describe "when job name has double title (xss threat)" do
       before do
         # this will create two titles unless the name is escaped by the db
-        @xss_job = FactoryGirl.create(:job_with_items, name: "Hey</title><title>injection")
-        visit job_path(@xss_job)
+        @xss_job = FactoryGirl.create(:job_with_items, name: "Hey</title><title>injection", user: user)
+        visit user_job_path(user, @xss_job)
       end
       it { should_not have_selector('title', text: /\Ainjection\z/) }
     end
@@ -66,10 +73,10 @@ describe "Job pages" do
   describe "index" do
     let(:job_name_un) { "Job 1" }
     let(:job_name_deux) { "Job 2" }
-    let!(:job_un) { FactoryGirl.create(:job_with_items, name: job_name_un) }
-    let!(:job_deux) { FactoryGirl.create(:job_with_items, name: job_name_deux) }
+    let!(:job_un) { FactoryGirl.create(:job_with_items, name: job_name_un, user: user) }
+    let!(:job_deux) { FactoryGirl.create(:job_with_items, name: job_name_deux, user: user) }
     before do
-      visit jobs_path
+      visit user_jobs_path(user)
     end
     it { should have_selector('h3', text: job_name_un) }
     it { should have_selector('h3', text: job_name_deux) }

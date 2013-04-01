@@ -3,13 +3,13 @@
     <%= link_to "Contractr", root_path, id: "logo" %>
 	  <nav>
 		<ul class="nav pull-right">
-      <li>
-        <%= link_to "New Job", new_job_path %>
-      </li>
-      <li>
-        <%= link_to "All Jobs", jobs_path %>
-      </li>
       <% if user_signed_in? %>
+        <li>
+          <%= link_to "New Job", new_user_job_path(current_user) %>
+        </li>
+        <li>
+          <%= link_to "All Jobs", user_jobs_path(current_user) %>
+        </li>
         <li>
           <%= link_to "Sign out", destroy_user_session_path, method: 'delete' %>
         </li>

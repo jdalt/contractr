@@ -21,6 +21,7 @@ FactoryGirl.define do
       "555-555-" + local.to_s
     end
     sequence(:zip) { |n| n + 55555 }
+    user
   end
 
   factory :work_category do
@@ -42,6 +43,7 @@ FactoryGirl.define do
   factory :job do
     name "Jon Doe's New Lawn"
     client
+    user
     is_bid true
     is_billed false
     is_paid false

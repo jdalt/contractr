@@ -5,7 +5,7 @@
   <% @jobs.each do |job| %>
 
     <div id="job_<%= job.id %>" class="job-box">
-      <a href="<%= job_path(job) %>"><span class="expand"></span></a> 
+      <a href="<%= user_job_path(current_user, job) %>"><span class="expand"></span></a> 
       <h3><%= job.name %></h3> 
       <br>
       <table class="compact-client-table">

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Job do
   let(:job) { FactoryGirl.build(:job_with_items, work_item_count: 1) }
   let(:client) { FactoryGirl.build(:client) }
+  let(:user) { FactoryGirl.build(:user) }
   let!(:cat) { FactoryGirl.create(:work_category) }
 
   subject { job }
@@ -58,7 +59,6 @@ describe Job do
     let(:params) do
       {
         "name" => "New Job", 
-        "client_attributes" => client_attrs,
         "work_items_attributes" => work_item_attrs
       }
     end
@@ -67,6 +67,8 @@ describe Job do
         params["work_items_attributes"]["0"]["work_category_id"] = ""
         params["work_items_attributes"]["1"]["work_category_id"] = ""
         @new_job = Job.new(params)
+        @new_job.client = client
+        @new_job.user = user
         @new_job.save
       end
       specify { @new_job.should_not be_valid }
@@ -77,6 +79,8 @@ describe Job do
         # TODO: could also test for valid integer that is not a valid id
         params["work_items_attributes"]["0"]["work_category_id"] = ""
         @new_job = Job.new(params)
+        @new_job.client = client
+        @new_job.user = user
         @new_job.save!
       end
       specify { @new_job.work_items.all.count == 1 }
@@ -86,6 +90,8 @@ describe Job do
     describe "that do include valid parameters" do
       before do
         @new_job = Job.new(params)
+        @new_job.client = client
+        @new_job.user = user
         @new_job.save!
       end
       specify { @new_job.should be_valid }

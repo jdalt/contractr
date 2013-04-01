@@ -1,10 +1,10 @@
 Contractr::Application.routes.draw do
 
   devise_for :users
-  resources :users, only: [:show]
-
-  resources :clients
-  resources :jobs
+  resources :users, only: [:show] do
+    resources :clients
+    resources :jobs
+  end
 
   root to: 'static_pages#home'
 

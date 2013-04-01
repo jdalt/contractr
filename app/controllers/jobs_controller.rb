@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  before_filter :authenticate_user!
 
   def new
     @client = Client.new( name: "New Client")
@@ -7,12 +8,17 @@ class JobsController < ApplicationController
   end
 
   def create
-    logger.debug(params[:job].inspect)
-    @job = Job.new(params[:job])
-    if(@job.save)
-      redirect_to @job
+    @client = current_user.clients.new(params[:client])
+    @job = current_user.jobs.new(params[:job])
+    @job.client = @client
+    if(@client.valid?)
+      if(@job.save)
+        redirect_to user_job_path(current_user, @job)
+      else
+        render 'new'
+      end
     else
-      @client = Client.new(params[:job][:client_attributes])
+      @job.valid?
       render 'new'
     end
   end
@@ -22,11 +28,11 @@ class JobsController < ApplicationController
   end
 
   def show
-    @job = Job.find(params[:id])
+    @job = current_user.jobs.find(params[:id])
   end
 
   def index
-    @jobs = Job.all #paginate this shit later
+    @jobs = current_user.jobs.all #paginate this shit later
   end
 
 end
