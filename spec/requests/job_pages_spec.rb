@@ -3,12 +3,7 @@ require 'spec_helper'
 describe "Job pages" do
   # TODO: consider replacing with a faster helper
   let!(:user) { FactoryGirl.create(:user) }
-  before do
-    visit new_user_session_path
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Sign in"
-  end
+  before { sign_in user }
 	subject { page }
 
   describe "new" do
@@ -22,7 +17,7 @@ describe "Job pages" do
     it { should have_selector('h1', text: 'Create New Job') }
     it { should have_selector('title', text: 'Job') }
 
-    describe "when you fill out a work_item" do
+    describe "when you fill in a work_item and a client name" do
       let(:submit) { "Save Job" }
       let(:job_name) { "Example Job" }
       before do
@@ -34,8 +29,13 @@ describe "Job pages" do
         # save_and_open_page
       end
 
-      it "should create a job" do
-        expect { click_button submit }.to change(Job, :count).by(1)
+      describe "with valid info it should create a job" do
+        it "should create a job" do
+          expect { click_button submit }.to change(Job, :count).by(1)
+        end
+        it "should create a client" do
+          expect { click_button submit }.to change(Client, :count).by(1)
+        end
       end
 
       describe "when you click submit with valid data it redirects to the job profile page" do
@@ -46,7 +46,18 @@ describe "Job pages" do
           it { should have_selector('#job-total-cost', text: (ppu*amount).to_s) }
           it { should have_selector('.work-item-cost', text: (ppu*amount).to_s) }
         end
+      end
 
+      describe "with invalid info it should not create a job" do
+        before do
+          fill_in "State", with: ""
+        end
+        it "should not create a job" do
+          expect { click_button submit }.not_to change(Job, :count).by(1)
+        end
+        it "should not create a client" do
+          expect { click_button submit }.not_to change(Client, :count).by(1)
+        end
       end
     end
   end

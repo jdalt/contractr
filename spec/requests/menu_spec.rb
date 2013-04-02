@@ -8,12 +8,7 @@ describe "menu" do
 
   describe "with valid signed in user" do
     let!(:user) { FactoryGirl.create(:user) }
-    before do
-      visit new_user_session_path
-      fill_in "Email", with: user.email
-      fill_in "Password", with: user.password
-      click_button "Sign in"
-    end
+    before { sign_in user }
     it { should have_link "New Job", href: new_user_job_path(user) }
     it { should have_link "All Jobs", href: user_jobs_path(user) }
     it { should have_link "Sign out", href: destroy_user_session_path }
