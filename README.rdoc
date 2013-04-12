@@ -1,3 +1,3 @@
-This is a rails application aimed at created an effective distributive system to bidding and invoicing for small service based businesses. 
+This is a rails application aimed at creating an effective distributive system for bidding and invoicing on smart phones or tablets for small service based businesses. 
 
 Currently a production server running this code can be found on heroku: http://sheltered-woodland-2414.herokuapp.com/
